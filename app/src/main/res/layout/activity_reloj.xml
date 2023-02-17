@@ -15,22 +15,30 @@
         app:layout_boxedEdges="all">
 
         <TextView
-            android:id="@+id/tvSaludo"
+            android:id="@+id/tvTitle"
+            android:layout_gravity="top|center_horizontal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/hello_world" />
+            android:text="Numero Mayor" />
 
         <Button
-            android:id="@+id/bn_cambio"
-            android:text="Cambiar"
+            android:id="@+id/bnCheck"
+            android:text="Check"
             android:layout_gravity="bottom|center_horizontal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             />
 
         <Spinner
-            android:id="@+id/sp_opciones"
-            android:layout_gravity="center_vertical"
+            android:id="@+id/spPrimerNumero"
+            android:layout_gravity="center|start"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            />
+
+        <Spinner
+            android:id="@+id/spSegundoNumero"
+            android:layout_gravity="center|end"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             />

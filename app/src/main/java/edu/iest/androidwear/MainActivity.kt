@@ -13,40 +13,46 @@ import edu.iest.androidwear.databinding.ActivityRelojBinding
 class MainActivity : Activity(), AdapterView.OnItemSelectedListener {
 
     private lateinit var binding: ActivityRelojBinding
-    private var textoSeleccionado : String? = null
+    private var primerNumero : String? = null
+    private var segundoNumero : String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         binding = ActivityRelojBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        binding.tvSaludo.text = "HOLA AMIGUITO"
-        binding.bnCambio.text = "Enviar"
+
 
         val adaptador = ArrayAdapter.createFromResource(this,R.array.misOpciones, android.R.layout.simple_spinner_item)
         adaptador.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
 
-        binding.spOpciones.adapter = adaptador
-        binding.spOpciones.onItemSelectedListener = this
+        binding.spPrimerNumero.adapter = adaptador
+        binding.spPrimerNumero.onItemSelectedListener = this
 
-        binding.bnCambio.setOnClickListener{
-            val alerta = AlertDialog.Builder(this)
-            alerta.setTitle("Atencion").setMessage("Quiere enviar el saludo $textoSeleccionado").setCancelable(false)
-                .setPositiveButton("OK",DialogInterface.OnClickListener{ dialogInterface, i ->
-                // Aqui el codigo
-                binding.tvSaludo.text = textoSeleccionado
-            })
-                .setNegativeButton("Cancelar", DialogInterface.OnClickListener{dialogInterface, i ->
-                    //Aqui el codigo
-                    Toast.makeText(this,"Una lastima :'(", Toast.LENGTH_LONG).show()
-                })
-                .show()
+        binding.spSegundoNumero.adapter = adaptador
+        binding.spSegundoNumero.onItemSelectedListener = this
+
+        binding.bnCheck.setOnClickListener{
+            if (Integer.valueOf(primerNumero)  > Integer.valueOf(segundoNumero)){
+                Toast.makeText(this, "El numero mayor es el Spinner Izquierdo", Toast.LENGTH_SHORT).show()
+            }else if (Integer.valueOf(primerNumero)  < Integer.valueOf(segundoNumero)){
+                Toast.makeText(this, "El numero mayor es el Spiner Derecho", Toast.LENGTH_SHORT).show()
+            }else if (Integer.valueOf(primerNumero)  == Integer.valueOf(segundoNumero)){
+                Toast.makeText(this, "Los numeros son iguales", Toast.LENGTH_SHORT).show()
+            }
         }
+
     }
 
     override fun onItemSelected(vistaPadre: AdapterView<*>?, vistaRow: View?, position: Int, idVista: Long) {
-        textoSeleccionado = vistaPadre?.getItemAtPosition(position).toString()
-        Toast.makeText(this, "Elegiste $textoSeleccionado", Toast.LENGTH_LONG).show()
+        if(vistaPadre!!.id == R.id.spPrimerNumero)
+        {
+            primerNumero = vistaPadre.getItemAtPosition(position).toString()
+        }
+        else if(vistaPadre!!.id == R.id.spSegundoNumero)
+        {
+            segundoNumero = vistaPadre.getItemAtPosition(position).toString()
+        }
     }
 
     override fun onNothingSelected(p0: AdapterView<*>?) {
